@@ -9,8 +9,6 @@ import {
 
 import { updateCollections } from '../../redux/shop/shop.actions';
 
-import withSpinner from '../../components/with-spinner/with-spinner.component';
-
 import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
 import CollectionPage from '../collection/collection.component';
 import WithSpinner from '../../components/with-spinner/with-spinner.component';
@@ -29,11 +27,16 @@ class ShopPage extends React.Component {
         const { updateCollections } = this.props;
         const collectionRef = firestore.collection('collections');
 
-        this.unsubscribeFromSnapshot = collectionRef.onSnapshot(async snapshot => {
-           const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-          updateCollections(collectionsMap);
-          this.setState({ loading: false });
-        });
+        // gebruikt als voorbeeld in les 182 
+        // fetch('https://firestore.googleapis.com/v1/projects/cees-eshop/databases/(default)/documents/collections')
+        // .then(response => response.json())
+        // .then(collections => console.log(collections));
+
+        collectionRef.get().then(snapshot => {
+            const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+           updateCollections(collectionsMap);
+           this.setState({ loading: false });
+         });        
     }
 
     render(){
