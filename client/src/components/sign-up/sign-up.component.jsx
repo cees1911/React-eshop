@@ -34,9 +34,7 @@ const SignUp = ({ signUpStart }) => {
         const { name, value } = event.target;
 
         setUserCredentials({ ...userCredentials, [name]: value })
-    }
-
-    
+    }   
        
         return(
             <SignUpContainer>
